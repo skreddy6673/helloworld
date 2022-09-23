@@ -1,0 +1,21 @@
+select count(id) from pipelines where paused = false
+
+-- Export these to a file
+
+select id from pipelines where paused = false
+
+update pipelines
+set
+	paused = true
+where
+	id in (select id from pipelines where paused = false)
+
+-- AFTER UPDATE
+-- use the values in the file to unpause the pipelines
+-- by putting them in the IN clause. Only do 30-50 at a time.
+
+update pipelines
+set
+	paused = false
+where
+	id in ()
